@@ -11,32 +11,46 @@
 <body class="d-flex flex-column h-100 pt-5">
 <section class="container mt-5 pt-5">
 
+<style>
+.nav-item *{
+    color: #fff;
+}
+</style>
 
-    <header>
-        <!-- Fixed navbar -->
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Fixed navbar</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+<header> 
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark w-100">
+        <div class="container">
+        <div>
+        <a class="navbar-brand" href="/">Schaatsbaan de Klapschaats</a>
+        </div>
+            <div class="float-right" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <?php if(empty($_SESSION['Username'])){ ?>
+                        <li class="nav-item d-flex align-items-center">
+                            <form action="/" method="POST" class="mb-0">
+                                <input type="submit" name="login" class="bg-dark border-0" style="cursor:pointer" value="Inloggen">
+                            </form>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                        <li class="nav-item d-flex align-items-center">
+                            <form action="/" method="POST" class="mb-0">
+                                <input type="submit" name="NewAccount" class="bg-dark border-0" style="cursor:pointer" value="Registeren">
+                            </form>
                         </li>
+                    <?php }  ?>
+  
+                 
+                    <?php if(!empty($_SESSION['Username'])){ ?>
                         <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                            <a class="nav-link active" aria-current="page" href="https://ex83488.ict-lab.nl/logout.php">Uitloggen</a>
                         </li>
-                    </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
-    </header>
+            
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Welkom <?php echo $_SESSION['name'] ?></a>
+                        </li>
+                    <?php }  ?>
+              
+                </ul>
+        </div>
+        </div>
+    </nav>
+</header>
