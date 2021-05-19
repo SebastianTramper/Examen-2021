@@ -1,6 +1,15 @@
 
-<?php require_once "../includes/head.php"; ?>
-<?php require_once "../config/config.php"; ?>
+<?php 
+
+require_once "../config/config.php"; 
+require_once "../includes/head.php";
+
+if(isset($_SESSION['Username'])){
+    header("Location: ../index.php");
+}
+
+?>
+
 
 
 
