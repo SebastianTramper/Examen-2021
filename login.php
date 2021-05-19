@@ -1,6 +1,6 @@
-<?php require_once "./includes/head.php"; ?>
-<?php require_once "./config/config.php"; ?>
 <?php
+
+require_once "./config/config.php"; 
 
 $username = $_POST['username'];
 $password = $_POST['password'];
@@ -14,15 +14,15 @@ if (password_verify($password, $rowUser['password'])) {
     $_SESSION['ID']   = $rowUser['id'];
     $_SESSION['UserRole'] = $rowUser['role'];
     $_SESSION['Username']  = $rowUser['username'];
+    $_SESSION['name']  = $rowUser['name'];
 
 
     if ($_SESSION['UserRole'] == 1) {
-        var_dump(($rowUser));
 
         header("Location: dashboard/default.php");
     }
 
-    if ($_SESSION['userRole'] == 2) {
+    if ($_SESSION['UserRole'] == 2) {
         header("Location: dashboard/admin.php");
     }
 
@@ -31,6 +31,5 @@ if (password_verify($password, $rowUser['password'])) {
 }
 ?>
 
-<?php require_once "./includes/footer.php"; ?>
 
 
