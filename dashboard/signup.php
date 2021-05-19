@@ -1,6 +1,7 @@
 
-<?php require_once "../includes/head.php";  ?>
 <?php require_once "../config/config.php"; ?>
+<?php require_once "../includes/head.php";  ?>
+
 <?php
 
 $Appointments = $conn->prepare("SELECT * FROM Appointment WHERE user_id = ? AND block_id = ?");
