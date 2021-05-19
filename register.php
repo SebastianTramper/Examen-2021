@@ -1,5 +1,6 @@
-<?php  require_once "./includes/head.php"; ?>
 <?php require_once "./config/config.php"; ?>
+<?php  require_once "./includes/head.php"; ?>
+
 
 <?php
 
@@ -44,33 +45,24 @@ if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 //  validate Email
 if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) { ?>
 
-    <p>Het ingevoerde emailadres: <?php  $_POST['email'] ?>  is niet geldig.<br>
+    <p class="text-danger">Het ingevoerde emailadres: <?php  $_POST['email'] ?>  is niet geldig.<br>
     <form action="index.php" method="POST">
-        <input type="submit" name="NewAccount" class="bg-white border-0 text-primary py-4" style="cursor:pointer" value="Probeer het nog eens">
+        <input type="submit" name="NewAccount" class="btn btn-primary" style="cursor:pointer" value="Probeer het nog eens">
     </form>
 
-<?php } ?>
+<!--  validate username duplicate -->
+<?php } else if ($checkExistingUsername->rowCount() > 0){ ?>
 
-
-
-<?php
-// validate username duplicate
-if($checkExistingUsername->rowCount() > 0){ ?>
-
-    <p>Gebruikersnaam: <?php $_POST['username'] ?> is niet meer beschikbaar. Probeer een andere. <br></p>
+    <p class="text-danger">De invoerde Gebruikersnaam <?php $_POST['username'] ?> is niet meer beschikbaar. Probeer een andere. <br></p>
     <form action="index.php" method="POST">
-        <input type="submit" name="NewAccount" class="bg-white border-0 text-primary py-4" style="cursor:pointer" value="Probeer het nog eens">
+        <input type="submit" name="NewAccount" class="btn btn-primary" style="cursor:pointer" value="Probeer het nog eens">
     </form>
 
-<?php } ?>
-
-<?php
-// validate password verify
-if($_POST['password'] != $_POST['passwordVerify']){ ?>
-
-    <p>De ingevulde wachtwoorden zijn niet gelijk </p>
+<!-- validate two passwords -->
+<?php } else if($_POST['password'] != $_POST['passwordVerify']){ ?>
+    <p class="text-danger">De ingevulde wachtwoorden zijn niet gelijk </p>
     <form action="index.php" method="POST">
-        <input type="submit" name="NewAccount" class="bg-white border-0 text-primary py-4" style="cursor:pointer" value="Probeer het nog eens">
+        <input type="submit" name="NewAccount" class="btn btn-primary" style="cursor:pointer" value="Probeer het nog eens">
     </form>
 
 <?php } ?>
