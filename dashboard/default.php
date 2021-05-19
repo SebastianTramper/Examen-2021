@@ -1,6 +1,6 @@
 
-<?php require_once "../includes/head.php"; ?>
 <?php require_once "../config/config.php"; ?>
+<?php require_once "../includes/head.php"; ?>
 
 <?php
 
@@ -8,13 +8,7 @@ $listResult = $conn->prepare("SELECT * FROM time_blocks");
 $listResult->execute();
 $rowList = $listResult->fetchAll();
 
-
-
 ?>
-
-<div class="mb-5">
-    <h2>Welkom <?php echo $_SESSION['Username'] ?> </h2>
-</div>
 
 <?php if (!isset($_POST['time'])) {  ?>
 
@@ -36,7 +30,6 @@ $rowList = $listResult->fetchAll();
         $appointments->execute();
         $maxAppointments = $appointments->fetchAll();
         
-        var_dump($maxAppointments);
         ?>
 
         <tr>
@@ -44,20 +37,31 @@ $rowList = $listResult->fetchAll();
             <td class="d-flex align-content-center h-100"><?php echo explode(" ",$row['start_time'])[1] . " t/m ". explode(" ",$row['end_time'])[1]; ?></td>
             <td>
 
+                <?php if(count($maxAppointments) <= 100){ ?>
+                    <?php if(!empty($_SESSION['Username'])){ ?>
+                        <form action="?appointment=<?php echo $row['id']?>" method="POST">
+                            <input type="submit" name="time" class="btn btn-primary" value="Aanmelden">
+                        </form>
+                    <?php } ?>
+                    <?php if(empty($_SESSION['Username'])){ ?>
+                        <form action="/" method="POST">
+                            <input type="submit" name="login" class="btn btn-primary" style="cursor:pointer" value="Aanmelden">
+                        </form>
+                    <?php } ?>
+                <?php }?>
 
-                <form action="?appointment=<?php echo $row['id']?>" method="POST">
-                    <input type="submit" name="time" class="btn btn-primary" value="Aanmelden">
-                </form>
+                <?php if(count($maxAppointments) > 100){ ?>
+                    <p class="text-danger">Dit tijdslot is vol!</p>
+                <?php } ?>
+
             </td>
 <!--            <td><a href="" class="text-danger">Verwijderen</a></td>-->
-
         </tr>
-
     <?php } ?>
-
     </tbody>
 </table>
-<?php }
+
+<?php } 
 
 if (isset($_POST['time'])) {
 
@@ -72,7 +76,7 @@ if (isset($_POST['time'])) {  ?>
     <!-- aanmelden -->
     <form action="signup.php" method="POST" class="needs-validation" novalidate>
     <input type="hidden" name="appointmentId" value="<?php echo $currentAppointmentResult['id'] ?>" required>
-        <h3>Reserveren schaatsbaan</h3>
+        <h3>Reservering bevestigen</h3>
         <p>Dit is een reservering voor:  <?php echo explode(" ",$currentAppointmentResult['start_time'])[0]; ?> 
         <br> Vanaf <?php echo explode(" ",$currentAppointmentResult['start_time'])[1] . " tot ". explode(" ",$currentAppointmentResult['end_time'])[1]; ?> </p>
         <input type="submit" class="btn btn-primary" value="Aanmelden" name="signup">
