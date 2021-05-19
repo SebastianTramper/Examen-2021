@@ -1,21 +1,22 @@
-<?php require_once "./includes/head.php"; ?>
 <?php require_once "./config/config.php"; ?>
-<?php
-
-//if(isset($_SESSION['username'])){
-//    if ($_SESSION['userRole'] == 1) {
-//        header("Location: dashboard/default.php");
-//    }
-//
-//    if ($_SESSION['userRole'] == 2) {
-//        header("Location: dashboard/admin.php");
-//    }
-//}
+<?php require_once "./includes/head.php"; ?>
 
 
-?>
+<?php if (!isset($_POST['login']) && !isset($_POST['NewAccount'])) { ?>
+    <div class="row">
+        <div class="col-md-6">
+        <h1></h1>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi ut labore illum nisi quaerat numquam a quis tempore ipsam, impedit laborum ab rerum beatae aut asperiores sit aspernatur! Perspiciatis, debitis. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam minus laboriosam eaque, aperiam veritatis, alias dolor qui beatae fugiat nam delectus maiores voluptates possimus ratione totam non voluptatibus ad odit.</p>
+            <a href="./dashboard/default.php" class="btn btn-success">Maak een reservering</a>
+        </div>
+        <div class="col-md-5 offset-md-1">
+            <img src="src/images/ice.jpg" alt="ice" class="img-fluid">
+        </div>
+    </div>
+<?php } ?>
 
 <?php if (!isset($_POST['NewAccount'])) { ?>
+    <?php if (isset($_POST['login'])) { ?>
 
     <!-- Login -->
     <form action="login.php" method="POST" class="needs-validation" novalidate>
@@ -33,8 +34,9 @@
     <form action="#" method="POST">
         <input type="submit" name="NewAccount" class="bg-white border-0 text-primary py-4" style="cursor:pointer" value="Of maak een account aan.">
     </form>
-
+    <?php } ?>
 <?php } ?>
+
 
 <?php if (isset($_POST['NewAccount']) && !isset($_POST['ExistingAccount'])) { ?>
 
