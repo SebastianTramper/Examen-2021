@@ -1,13 +1,20 @@
-<?php require_once "./config/config.php"; ?>
-<?php require_once "./includes/head.php"; ?>
+<?php 
+require_once "./config/config.php";
+require_once "./includes/head.php"; 
 
 
-<?php if (!isset($_POST['login']) && !isset($_POST['NewAccount'])) { ?>
+
+ if (!isset($_POST['login']) && !isset($_POST['NewAccount'])) { ?>
     <div class="row">
         <div class="col-md-6">
         <h1></h1>
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi ut labore illum nisi quaerat numquam a quis tempore ipsam, impedit laborum ab rerum beatae aut asperiores sit aspernatur! Perspiciatis, debitis. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam minus laboriosam eaque, aperiam veritatis, alias dolor qui beatae fugiat nam delectus maiores voluptates possimus ratione totam non voluptatibus ad odit.</p>
-            <a href="./dashboard/default.php" class="btn btn-success">Maak een reservering</a>
+            <a href="./dashboard/default.php" class="btn btn-primary">Maak een reservering</a>
+
+            <?php if ($_SESSION['UserRole'] == 2) { ?>
+                <a href="./dashboard/admin/index.php" class="btn btn-success ml-3">Administrator overzicht</a>
+            <?php } ?>
+
         </div>
         <div class="col-md-5 offset-md-1">
             <img src="src/images/ice.jpg" alt="ice" class="img-fluid">

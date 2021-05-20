@@ -15,6 +15,9 @@ if (password_verify($password, $rowUser['password'])) {
     $_SESSION['UserRole'] = $rowUser['role'];
     $_SESSION['Username']  = $rowUser['username'];
     $_SESSION['name']  = $rowUser['name'];
+    $_SESSION['adress']  = $rowUser['adress'];
+    $_SESSION['town']  = $rowUser['plaats'];
+    $_SESSION['member']  = $rowUser['member'];
 
 
     if ($_SESSION['UserRole'] == 1) {
@@ -23,7 +26,7 @@ if (password_verify($password, $rowUser['password'])) {
     }
 
     if ($_SESSION['UserRole'] == 2) {
-        header("Location: dashboard/admin.php");
+        header("Location: dashboard/admin/index.php");
     }
 
 }else{
