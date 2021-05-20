@@ -9,7 +9,7 @@ $AppointmentInfo = $Appointment->fetchAll();
 
 ?>
 
-<a href="../index.php" class="btn btn-primary mb-4">Terug naar het overzicht</a>
+<a href="../index.php" class="btn btn-primary">Terug naar het overzicht</a>
 
 <table class="table">
 

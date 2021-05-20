@@ -20,44 +20,41 @@ $rowList = $listResult->fetchAll();
         <th scope="col">Datum:</th>
         <th scope="col">tijd:</th>
         <th scope="col"></th>
+
     </tr>
     </thead>
     <tbody>
 
     <?php foreach($rowList as $row){ 
-        
-        $appointments = $conn->prepare("SELECT * FROM Appointment WHERE block_id = " . $row['id']);
-        $appointments->execute();
-        $maxAppointments = $appointments->fetchAll();
-        
-        ?>
+        if($row['public'] == 1){
+            $appointments = $conn->prepare("SELECT * FROM Appointment WHERE block_id = " . $row['id']);
+            $appointments->execute();
+            $maxAppointments = $appointments->fetchAll();?>
+            <tr>
+                <td><?php echo explode(" ",$row['start_time'])[0]?></td>
+                <td class="d-flex align-content-center h-100"><?php echo explode(" ",$row['start_time'])[1] . " t/m ". explode(" ",$row['end_time'])[1]; ?></td>
+                <td>
+                    <?php if(count($maxAppointments) <= 100){ ?>
+                        <?php if(!empty($_SESSION['Username'])){ ?>
+                            <form action="?appointment=<?php echo $row['id']?>" method="POST">
+                                <input type="submit" name="time" class="btn btn-primary" value="Aanmelden">
+                            </form>
+                        <?php } ?>
+                        <?php if(empty($_SESSION['Username'])){ ?>
+                            <form action="/" method="POST">
+                                <input type="submit" name="login" class="btn btn-primary" style="cursor:pointer" value="Aanmelden">
+                            </form>
+                        <?php } ?>
+                    <?php }?>
 
-        <tr>
-            <td><?php echo explode(" ",$row['start_time'])[0]?></td>
-            <td class="d-flex align-content-center h-100"><?php echo explode(" ",$row['start_time'])[1] . " t/m ". explode(" ",$row['end_time'])[1]; ?></td>
-            <td>
-
-                <?php if(count($maxAppointments) <= 100){ ?>
-                    <?php if(!empty($_SESSION['Username'])){ ?>
-                        <form action="?appointment=<?php echo $row['id']?>" method="POST">
-                            <input type="submit" name="time" class="btn btn-primary" value="Aanmelden">
-                        </form>
+                    <?php if(count($maxAppointments) > 100){ ?>
+                        <p class="text-danger">Dit tijdslot is vol!</p>
                     <?php } ?>
-                    <?php if(empty($_SESSION['Username'])){ ?>
-                        <form action="/" method="POST">
-                            <input type="submit" name="login" class="btn btn-primary" style="cursor:pointer" value="Aanmelden">
-                        </form>
-                    <?php } ?>
-                <?php }?>
+                </td>
+            </tr>
+            <?php }  ?>
+        <?php } ?>
 
-                <?php if(count($maxAppointments) > 100){ ?>
-                    <p class="text-danger">Dit tijdslot is vol!</p>
-                <?php } ?>
-
-            </td>
-<!--            <td><a href="" class="text-danger">Verwijderen</a></td>-->
-        </tr>
-    <?php } ?>
     </tbody>
 </table>
 

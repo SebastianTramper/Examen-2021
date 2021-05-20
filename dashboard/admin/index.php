@@ -20,6 +20,9 @@ $rowList = $listResult->fetchAll();
     <tr>
         <th scope="col">Datum:</th>
         <th scope="col">tijd:</th>
+        <th scope="col">Gepublisheerd</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
         <th scope="col"></th>
     </tr>
     </thead>
@@ -32,12 +35,18 @@ $rowList = $listResult->fetchAll();
         $maxAppointments = $appointments->fetchAll();
         
         ?>
-
         <tr>
-            <td><?php echo explode(" ",$row['start_time'])[0]?></td>
+            <td><?php echo date("d/m/Y", strtotime(explode(" ",$row['start_time'])[0]));?></td>
             <td class="d-flex align-content-center h-100"><?php echo explode(" ",$row['start_time'])[1] . " t/m ". explode(" ",$row['end_time'])[1]; ?></td>
             <td>
+                <?php if($row['public'] == 0){ echo "Offline"; }  ?>
+                <?php if($row['public'] == 1){ echo "Online"; }  ?>
+            </td>
+            <td>
                 <a href="./operations/view.php?id=<?= $row['id'] ?>" class="btn btn-primary">Bekijk inschrijvingen</a>
+            </td>
+            <td>
+                <a href="./operations/update.php?id=<?= $row['id'] ?>" class="btn btn-success">Tijdsblok aanpassen</a>
             </td>
             <td>
    

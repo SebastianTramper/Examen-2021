@@ -3,10 +3,22 @@
 require_once "../includes/head.php";
 require_once '../vendor/autoload.php';
 
+
+$stmt = $conn->prepare("SELECT * FROM time_blocks WHERE id = ?");
+$stmt->execute([$_GET['id']]);
+$timeBlocks = $stmt->fetch();
+
+$day = date("d/m/Y", strtotime(explode(" ",$timeBlocks[1])[0]));
+$start_date = explode(" ",$timeBlocks[2])[1];
+$end_date = explode(" ",$timeBlocks[1])[1];
+
+
 $name = $_SESSION["name"];
 $adress = $_SESSION["adress"];
 $town = $_SESSION["town"];
 $member = $_SESSION['member'];
+
+
 ?>
 
 
@@ -28,6 +40,8 @@ if(isset($_POST['download'])){
     $data .= '<p>Naam: <strong> '.  $name  .' </strong></p>';
     $data .= '<p>Adres: <strong> '. $adress .' </strong></p>';
     $data .= '<p>Plaats: <strong> '.  $town  .' </strong></p>';
+    $data .= '<p>Datum: <strong> '.  $day  .' </strong></p>';
+    $data .= '<p>Vanaf: <strong> '.  $end_date  .' Tot ' .  $start_date . '</p>';
 
     if($member == 1){
     $data .= '<p>U bent <strong>lid</strong> en daarom hoeft u niet extra te betalen</p>';    
