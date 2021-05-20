@@ -1,10 +1,9 @@
 <?php 
 
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
+require_once "../../../config/config.php";
 
-require_once "../../../config/config.php"; 
+if($_SESSION['UserRole'] == 2){
+
 require_once "../../../includes/head.php";
 
 if(!isset($_POST['update'])){
@@ -12,19 +11,26 @@ if(!isset($_POST['update'])){
     $Appointment->execute();
     $AppointmentInfo = $Appointment->fetch();
 
-
-
 ?> 
 
-    <form action="?action=update" method="POST" class="mt-5">
+    <form action="?action=update" method="POST" class="mt-5 needs-validation">
         <h2>Tijdsblok aanpassen</h2>
         <input type="hidden" name="id" value="<?= $_GET['id'] ?>">
         <label for="date">Datum</label>
-        <input type="date" id="date" name="date" class="form-control" value="<?php echo explode(" ", $AppointmentInfo[1])[0]; ?>">
+        <input type="date" id="date" name="date" class="form-control" value="<?php echo explode(" ", $AppointmentInfo[1])[0]; ?>" required>
+        <div class="invalid-feedback">
+            Dit veld is verplicht om in te vullen!
+        </div>
         <label for="start_time">Start tijd</label>
-        <input type="time" id="start_time" name="start_time" class="form-control" value="<?php echo explode(" ", $AppointmentInfo[1])[1]; ?>">
+        <input type="time" id="start_time" name="start_time" class="form-control" value="<?php echo explode(" ", $AppointmentInfo[1])[1]; ?>" required>
+        <div class="invalid-feedback">
+            Dit veld is verplicht om in te vullen!
+        </div>
         <label for="end_time">Eind tijd</label>
-        <input type="time" id="end_time" class="form-control" name="end_time" value="<?php echo explode(" ", $AppointmentInfo[2])[1]; ?>">
+        <input type="time" id="end_time" class="form-control" name="end_time" value="<?php echo explode(" ", $AppointmentInfo[2])[1]; ?>" required>
+        <div class="invalid-feedback">
+                Dit veld is verplicht om in te vullen!
+            </div>
         <div class="form-check mt-3">
             <?php if($AppointmentInfo['public'] == 1){ ?>
                 <input class="form-check-input" type="radio" name="publish" value="0" id="Publiceren1">
@@ -80,3 +86,6 @@ if($_GET['action'] == 'update'){
 }
 
 require_once "../../../includes/footer.php"; 
+}else{
+    header("Location: ../../../index.php");
+}

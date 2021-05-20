@@ -1,6 +1,10 @@
 
-<?php require_once "../../config/config.php"; ?>
-<?php require_once "../../includes/head.php"; ?>
+<?php require_once "../../config/config.php"; 
+
+if($_SESSION['UserRole'] == 2){
+    
+require_once "../../includes/head.php"; 
+?>
 
 <?php
 
@@ -101,4 +105,9 @@ $rowList = $listResult->fetchAll();
 </div>
 
 
-<?php require_once "../../includes/footer.php"; ?>
+<?php require_once "../../includes/footer.php";
+
+}else{
+    header("Location: ../../index.php");
+}
+?>

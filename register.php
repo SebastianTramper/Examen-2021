@@ -3,42 +3,48 @@
 
 
 <?php
-
-$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-$checkExistingUsername = $conn->prepare("SELECT * FROM users WHERE username = ?");
-$checkExistingUsername->execute([$_POST['username']]);
-
-
-if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-
-    if($_POST['password'] == $_POST['passwordVerify']){
-
-        if(!$checkExistingUsername->rowCount() > 0){
-
-            try {
-                $stmt = $conn->prepare("INSERT INTO  users(ID, username, password, email, name, adress, plaats, phone, role)
-                VALUES (?, ?, ?, ?, ?,? ,? ,?, ?)");
-                $stmt->execute([
-                        null,
-                    $_POST['username'],
-                    $password,
-                    $_POST['email'],
-                    $_POST['name'],
-                    $_POST['adress'],
-                    $_POST['town'],
-                    $_POST['phone'], 1]);
-
-                include "./login.php";
-
-            } catch (PDOException $e) {
-                echo "Er gaat iets mis met het registeren. " . $e;
+if(empty($_POST['honeypod'])){
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $checkExistingUsername = $conn->prepare("SELECT * FROM users WHERE username = ?");
+    $checkExistingUsername->execute([$_POST['username']]);
+    
+    
+    if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+    
+        if($_POST['password'] == $_POST['passwordVerify']){
+    
+            if(!$checkExistingUsername->rowCount() > 0){
+    
+                try {
+                    $stmt = $conn->prepare("INSERT INTO  users(ID, username, password, email, name, adress, plaats, phone, member, role)
+                    VALUES (?, ?, ?, ?, ?,? ,? ,?, ?, ?)");
+                    $stmt->execute([
+                            null,
+                        $_POST['username'],
+                        $password,
+                        $_POST['email'],
+                        $_POST['name'],
+                        $_POST['adress'],
+                        $_POST['town'],
+                        $_POST['phone'],
+                        $_POST['member'],
+                        1]);
+    
+                    include "./login.php";
+    
+                } catch (PDOException $e) {
+                    echo "Er gaat iets mis met het registeren. " . $e;
+                }
+    
             }
-
         }
-    }
-
-
-} ?>
+    
+    
+    } 
+}else{
+    echo "Bots zijn niet welkom";
+}
+?>
 
 
 <?php

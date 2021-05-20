@@ -1,5 +1,7 @@
 
-<?php require_once "../config/config.php"; 
+<?php require_once "../config/config.php";
+if(!empty($_SESSION['ID'])){
+
 require_once "../includes/head.php";
 require_once '../vendor/autoload.php';
 
@@ -58,4 +60,6 @@ if(isset($_POST['download'])){
 
 require_once "./includes/footer.php"; 
 
-
+}else{
+    header("Location: ../index.php");
+}

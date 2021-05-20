@@ -1,6 +1,9 @@
 <?php 
 
 require_once "../../../config/config.php"; 
+
+if($_SESSION['UserRole'] == 2){
+
 require_once "../../../includes/head.php"; 
 
 if (isset($_POST['new'])) {  ?>
@@ -55,3 +58,6 @@ if($_GET['action'] == 'create'){
 }
 
 require_once "../../../includes/footer.php"; 
+}else{
+    header("Location: ../../../index.php");
+}
