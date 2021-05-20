@@ -8,11 +8,17 @@ $listResult = $conn->prepare("SELECT * FROM time_blocks");
 $listResult->execute();
 $rowList = $listResult->fetchAll();
 
+$Appointment = $conn->prepare("SELECT * FROM Appointment WHERE user_id = " . $_SESSION['ID']);
+$Appointment->execute();
+$AppointmentList = $Appointment->fetchAll();
+
+
 ?>
 
 <?php if (!isset($_POST['time'])) {  ?>
 
 <h3>Schaatsbaan overzicht</h3>
+<p>Let op je kunt je maar voor 1 tijdslot inschrijven!</p>
 <table class="table">
 
     <thead>
@@ -29,23 +35,39 @@ $rowList = $listResult->fetchAll();
         if($row['public'] == 1){
             $appointments = $conn->prepare("SELECT * FROM Appointment WHERE block_id = " . $row['id']);
             $appointments->execute();
-            $maxAppointments = $appointments->fetchAll();?>
+            $maxAppointments = $appointments->fetchAll();  ?>
+
+            
+         
             <tr>
                 <td><?php echo explode(" ",$row['start_time'])[0]?></td>
                 <td class="d-flex align-content-center h-100"><?php echo explode(" ",$row['start_time'])[1] . " t/m ". explode(" ",$row['end_time'])[1]; ?></td>
                 <td>
                     <?php if(count($maxAppointments) <= 100){ ?>
+
                         <?php if(!empty($_SESSION['Username'])){ ?>
-                            <form action="?appointment=<?php echo $row['id']?>" method="POST">
-                                <input type="submit" name="time" class="btn btn-primary" value="Aanmelden">
-                            </form>
-                        <?php } ?>
+                            <?php if(empty($AppointmentList)){ ?>
+                                <form action="?appointment=<?php echo $row['id']?>" method="POST">
+                                    <input type="submit" name="time" class="btn btn-primary" value="Aanmelden">
+                                </form>
+                        <?php }} ?>
+
                         <?php if(empty($_SESSION['Username'])){ ?>
                             <form action="/" method="POST">
-                                <input type="submit" name="login" class="btn btn-primary" style="cursor:pointer" value="Aanmelden">
+                                <input type="submit" name="login" class="btn btn-primary" style="cursor:pointer" value="Inschrijven">
                             </form>
                         <?php } ?>
                     <?php }?>
+                    
+
+                    <?php foreach($maxAppointments as $Appointments){ ?>
+                        <?php if($_SESSION['ID'] == $Appointments['user_id']){ ; ?>
+                            <form action="signout.php" method="POST">
+                                <input type="hidden" value="<?= $Appointments['id'] ?>" name="time_block_id">
+                                <input type="submit" name="signout" class="btn btn-danger" style="cursor:pointer" value="Uitschrijven">
+                            </form>
+                        <?php } ?>
+                    <?php } ?>
 
                     <?php if(count($maxAppointments) > 100){ ?>
                         <p class="text-danger">Dit tijdslot is vol!</p>
