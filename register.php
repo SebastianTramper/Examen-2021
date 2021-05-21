@@ -4,7 +4,7 @@
 
 <?php
 if(empty($_POST['honeypod'])){
-    
+
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $checkExistingUsername = $conn->prepare("SELECT * FROM users WHERE username = ?");
     $checkExistingUsername->execute([$_POST['username']]);
@@ -19,7 +19,7 @@ if(empty($_POST['honeypod'])){
                     $stmt = $conn->prepare("INSERT INTO  users(ID, username, password, email, name, adress, plaats, phone, member, role)
                     VALUES (?, ?, ?, ?, ?,? ,? ,?, ?, ?)");
                     $stmt->execute([
-                            null,
+                        null,
                         $_POST['username'],
                         $password,
                         $_POST['email'],

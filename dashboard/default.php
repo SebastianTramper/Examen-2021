@@ -62,10 +62,32 @@ $AppointmentList = $Appointment->fetchAll();
 
                     <?php foreach($maxAppointments as $Appointments){ ?>
                         <?php if($_SESSION['ID'] == $Appointments['user_id']){ ; ?>
-                            <form action="signout.php" method="POST">
-                                <input type="hidden" value="<?= $Appointments['id'] ?>" name="time_block_id">
-                                <input type="submit" name="signout" class="btn btn-danger" style="cursor:pointer" value="Uitschrijven">
-                            </form>
+
+
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                Uitschrijven
+                            </button>
+
+                            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Uitschrijven</h5>
+                                        <button type="button" class="bg-white border-0" data-bs-dismiss="modal" aria-label="Close">x</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Weet u zeker dat u wilt uitschrijven?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <form action="signout.php" method="POST" class="mb-0">
+                                        <input type="hidden" value="<?= $Appointments['id'] ?>" name="time_block_id">
+                                        <input type="submit" name="signout" class="btn btn-danger" style="cursor:pointer" value="Uitschrijven">
+                                    </form>
+                                        <button type="button" class="btn btn-success" data-bs-dismiss="modal" aria-label="Close">Een stap terug</button>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
                         <?php } ?>
                     <?php } ?>
 

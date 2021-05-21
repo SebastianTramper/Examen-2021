@@ -25,11 +25,13 @@ $member = $_SESSION['member'];
 
 
 <h1>Bedankt voor het aanmelden!</h1>
-<p>Print uw aanmeld bewijs uit door op downloaden te klikken.</p>
+<p>Print uw aanmeld bewijs uit door op downloaden te klikken.<br>
+U kunt altijd nog uw PDF terug vinden in uw <a href="https://ex83488.ict-lab.nl/dashboard/account.php?id=<?= $_SESSION['ID'] ?>">persoonlijk overzicht</a>
+</p>
 <form action="" method="POST" class="mt-3">
     <input type="submit" name="download" class="btn btn-success" style="cursor:pointer" value="Downloaden">
 </form>
-<a href="default.php" class="btn btn-primary">Terug naar het overzicht</a>
+<a href="default.php" class="btn btn-primary">Terug naar het reserverings overzicht</a>
 
 
 

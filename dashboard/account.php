@@ -42,13 +42,35 @@ if($_SESSION['ID'] == $_GET['id']){
         <form action="" method="POST" class="mt-3">
             <input type="submit" name="download" class="btn btn-success" style="cursor:pointer" value="Downloaden">
         </form>
-        <form action="signout.php" method="POST">
-                <input type="hidden" value="<?= $appointment['id'] ?>" name="time_block_id">
-                <input type="submit" name="signout" class="btn btn-danger" style="cursor:pointer" value="Uitschrijven">
-        </form>
-        <a href="default.php" class="btn btn-primary">Terug naar het overzicht</a>
-        
        
+       <div>
+           <a href="default.php" class="btn btn-primary">Terug naar het reserverings overzicht</a>
+       </div>
+        
+        <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#deleteModal">
+            Uitschrijven
+        </button>
+
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Uitschrijven</h5>
+                    <button type="button" class="bg-white border-0" data-bs-dismiss="modal" aria-label="Close">x</button>
+                </div>
+                <div class="modal-body">
+                    <p>Weet u zeker dat u wilt uitschrijven?</p>
+                </div>
+                <div class="modal-footer">
+                <form action="signout.php" method="POST" class="mb-0">
+                    <input type="hidden" value="<?= $appointment['id'] ?>" name="time_block_id">
+                    <input type="submit" name="signout" class="btn btn-danger" style="cursor:pointer" value="Uitschrijven">
+                </form>
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" aria-label="Close">Een stap terug</button>
+                </div>
+                </div>
+            </div>
+        </div>
         
         <?php
         
