@@ -12,7 +12,6 @@ $AppointmentInfo = $Appointment->fetchAll();
 
 ?>
 
-<a href="../index.php" class="btn btn-primary">Terug naar het overzicht</a>
 
 <table class="table">
 
@@ -64,6 +63,8 @@ $AppointmentInfo = $Appointment->fetchAll();
         <?php } ?>
     </tbody>
 </table>
+
+<a href="../index.php" class="btn btn-primary">Terug naar het overzicht</a>
 
 <?php 
 require_once "../../../includes/footer.php"; 

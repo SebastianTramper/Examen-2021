@@ -4,10 +4,10 @@
 
 <?php
 if(empty($_POST['honeypod'])){
+    
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $checkExistingUsername = $conn->prepare("SELECT * FROM users WHERE username = ?");
     $checkExistingUsername->execute([$_POST['username']]);
-    
     
     if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
     

@@ -26,11 +26,12 @@ $member = $_SESSION['member'];
 
 <h1>Bedankt voor het aanmelden!</h1>
 <p>Print uw aanmeld bewijs uit door op downloaden te klikken.</p>
-<a href="../index.php" class="btn btn-primary">Terug naar het overzicht</a>
-
 <form action="" method="POST" class="mt-3">
     <input type="submit" name="download" class="btn btn-success" style="cursor:pointer" value="Downloaden">
 </form>
+<a href="default.php" class="btn btn-primary">Terug naar het overzicht</a>
+
+
 
 <?php
 

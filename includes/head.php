@@ -44,10 +44,25 @@
                             <a class="nav-link active" aria-current="page" href="https://ex83488.ict-lab.nl/logout.php">Uitloggen</a>
                         </li>
             
+                   <?php  if($_SESSION['UserRole'] == 1){ ?>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Welkom <?php echo $_SESSION['name'] ?></a>
+                            <a href="https://ex83488.ict-lab.nl/dashboard/account.php?id=<?= $_SESSION['ID'] ?>" class="nav-link active">Mijn overzicht</a>
                         </li>
-                    <?php }  ?>
+                    <?php }
+
+                    if($_SESSION['UserRole'] == 2){ ?>
+                            <li class="nav-item ">
+                                <a href="https://ex83488.ict-lab.nl/dashboard/admin" class="nav-link active">Admin overzicht</a>
+                            </li>
+                    <?php } ?>
+                    
+
+                        <li class="nav-item">
+                            <span class="nav-link active">  Welkom <?php echo $_SESSION['name'];  ?></span>
+                        </li>
+                    <?php } ?>
+                    
+                
               
                 </ul>
         </div>
